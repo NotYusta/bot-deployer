@@ -13,7 +13,7 @@ export default class BDClient extends Client {
         });
         this.token = token;
     }
-    init() {
+    async init() {
         this.on('ready', () => {
             console.log(`Logged in as ${this.user.tag}`);
         });
