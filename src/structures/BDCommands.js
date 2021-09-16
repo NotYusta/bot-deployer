@@ -8,6 +8,8 @@ export default class BDCommands {
     constructor() {
         this.commands = new Map();
         this.prefix = Utils.getConfig().prefix;
+
+        this.registerCommands();
     }
     execute(type) {
         if(type instanceof Message) {
@@ -48,6 +50,9 @@ export default class BDCommands {
         cmdFromMap.executeInteraction(commandInteraction);
     }
 
+    registerCommands() {
+        this.commands.set("ping", new PingCMD());
+    }
     /**
      * 
      * @param { REST } rest 
@@ -56,9 +61,6 @@ export default class BDCommands {
      */
     async registerInteraction(rest, clientID) {
         const commandsData = [];
-
-        await this.commands.set("ping", new PingCMD());
-
 
         await this.commands.forEach(async command => {
             const data = await command.getInteractionData();
