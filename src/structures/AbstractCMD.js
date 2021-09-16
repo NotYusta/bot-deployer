@@ -8,11 +8,16 @@ export default class AbstractCMD {
     async executeCommand(message) {
         throw new Error('Method execute command must be implemented!');
     }
+
     /**
      * 
      * @param { CommandInteraction } interaction 
      */
     async executeInteraction(interaction) {
         throw new Error('Method interaction command must be implemented!');
+    }
+
+    getInteractionData() {
+        throw new Error('Method interaction command data must be implemented!');
     }
 }

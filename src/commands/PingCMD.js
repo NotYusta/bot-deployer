@@ -1,5 +1,6 @@
 import AbstractCMD from "../structures/AbstractCMD.js";
 import { Message, CommandInteraction } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 export default class PingCMD extends AbstractCMD {
 
@@ -19,5 +20,18 @@ export default class PingCMD extends AbstractCMD {
 
     async executeInteraction(interaction) {
         await interaction.reply('pong!');
+    }
+
+    /**
+     * 
+     * @param { SlashCommandBuilder } cmd
+     */
+    
+    getInteractionData() {
+        const cmd = new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('replies with Pong!')
+
+        return cmd.toJSON();
     }
 }

@@ -1,13 +1,13 @@
 import { PingCMD } from "../commands/index.js";
 import { Message, CommandInteraction } from "discord.js";
+import { Routes } from "discord-api-types/v9";
+import { REST } from "@discordjs/rest";
 import Utils from "../Utils.js";
 
 export default class BDCommands {
     constructor() {
         this.commands = new Map();
         this.prefix = Utils.getConfig().prefix;
-
-        this.commands.set("ping", new PingCMD());
     }
     execute(type) {
         if(type instanceof Message) {
@@ -46,5 +46,39 @@ export default class BDCommands {
 
         console.log(`${commandInteraction.user.tag} executed ${commandInteraction} command interaction`);
         cmdFromMap.executeInteraction(commandInteraction);
+    }
+
+    /**
+     * 
+     * @param { REST } rest 
+     * @param { String } clientID
+     * 
+     */
+    async registerInteraction(rest, clientID) {
+        const commandsData = [];
+
+        await this.commands.set("ping", new PingCMD());
+
+
+        await this.commands.forEach(async command => {
+            const data = await command.getInteractionData();
+
+            console.log(`Registering ${data.name.toUpperCase()} command..`);
+
+            commandsData.push(data);
+
+            console.log(`Registered ${data.name.toUpperCase()} command.`);
+        });
+
+
+        try {
+            console.log('Registering application commands..');
+            await rest.put(
+                Routes.applicationCommands(clientID), {body: commandsData }
+            );
+            console.log('Successfully registered all commands');
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 }

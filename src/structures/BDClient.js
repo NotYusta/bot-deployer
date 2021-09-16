@@ -1,3 +1,4 @@
+import { REST } from "@discordjs/rest";
 import { Client, Intents} from "discord.js";
 import BDCommands from "./BDCommands.js";
 
@@ -16,6 +17,7 @@ export default class BDClient extends Client {
     async init() {
         this.on('ready', () => {
             console.log(`Logged in as ${this.user.tag}`);
+            new BDCommands().registerInteraction(new REST().setToken(this.token), this.user.id);
         });
 
         this.on("interactionCreate", interaction => {
