@@ -8,7 +8,6 @@ export default class BDCommands {
     constructor() {
         this.commands = new Map();
         this.prefix = Utils.getConfig().prefix;
-
         this.registerCommands();
     }
     execute(type) {
@@ -65,11 +64,11 @@ export default class BDCommands {
         await this.commands.forEach(async command => {
             const data = await command.getInteractionData();
 
-            console.log(`Registering ${data.name.toUpperCase()} command..`);
+            console.log(`Registering ${this.prefix}${data.name.toUpperCase()} command..`);
 
             commandsData.push(data);
 
-            console.log(`Registered ${data.name.toUpperCase()} command.`);
+            console.log(`Registered ${this.prefix}${data.name.toUpperCase()} command.`);
         });
 
 
