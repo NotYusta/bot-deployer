@@ -1,5 +1,4 @@
 import { Client, Intents} from "discord.js";
-import Utils from "../Utils.js";
 import BDCommands from "./BDCommands.js";
 
 export default class BDClient extends Client {
