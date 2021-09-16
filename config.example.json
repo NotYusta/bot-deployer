@@ -1,0 +1,11 @@
+[
+    {
+        "token": "",
+        "prefix": "!",
+        "database": {
+            "free_mysql": {
+                "database": ""
+            }
+        }
+    }
+]
